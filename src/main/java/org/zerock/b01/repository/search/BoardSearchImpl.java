@@ -10,6 +10,7 @@ import org.zerock.b01.domain.Board;
 import org.zerock.b01.domain.QBoard;
 
 import java.util.List;
+import java.util.Objects;
 
 public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardSearch {
 
@@ -67,7 +68,8 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
         query.where(board.bno.gt(0L));
 
         // paging
-        this.getQuerydsl().applyPagination(pageable, query);
+        //this.getQuerydsl().applyPagination(pageable, query);
+        Objects.requireNonNull(this.getQuerydsl()).applyPagination(pageable, query);
 
         List<Board> list = query.fetch();
 

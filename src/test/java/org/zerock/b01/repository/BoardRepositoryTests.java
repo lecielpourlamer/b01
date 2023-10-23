@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.zerock.b01.domain.Board;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -50,7 +51,7 @@ public class BoardRepositoryTests {
 //        Board board = result.orElseThrow();
 //        log.info("board >>>>>>>>>>>>> {}", board);
 
-        Board selectResult = boardRepository.findById(bno).orElseThrow();
+        Board selectResult = boardRepository.findById(bno).orElseThrow(() -> new NoSuchElementException("게시물을 찾을 수 없습니다."));
 
         Assertions.assertThat(selectResult).isNotNull();
         log.info("board >>>>>>>>>>>>> {}", selectResult);
@@ -63,7 +64,7 @@ public class BoardRepositoryTests {
 
         Long bno = 100L;
 
-        Board updateTest = boardRepository.findById(bno).orElseThrow();
+        Board updateTest = boardRepository.findById(bno).orElseThrow(() -> new NoSuchElementException("게시물을 찾을 수 없습니다."));
         updateTest.change("update..title 333", "update content 333");
 
         boardRepository.save(updateTest);
